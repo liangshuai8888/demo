@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>控制DIV属性</title>
+	<style>
+		#outer{width:500px;margin:0 auto;padding: 0;text-align: center;}
+		#box1{width:100px;height:100px;background: black;margin:20px auto;}
+	</style>
+</head>
+<body>
+	<div id="outer">
+		<input type="button" value="变宽">
+		<input type="button" value="变高">
+		<input type="button" value="变色">
+		<input type="button" value="隐藏">
+		<input type="button" value="重置">
+		<div id="box1"></div>
+	</div>
+</body>
+<script>
+	var oInput = document.getElementsByTagName('input');
+	var oBox1 = document.getElementById('box1');
+
+	var attr=['width','height','background','display'];
+	var vals=['200px','200px','red','none'];
+
+	for(var i =0; i<oInput.length;i++){
+		oInput[i].index = i;   //自定义属性
+		oInput[i].onclick=function(){
+			this.index == oInput.length -1 && (oBox1.style.cssText = '');
+			changeStyle(oBox1,attr[this.index],vals[this.index]);
+		} 
+	}
+
+	var changeStyle = function (ele,attr,value){
+		ele.style[attr] = value;
+	}
+
+
+
+
+</script>
+</html>
