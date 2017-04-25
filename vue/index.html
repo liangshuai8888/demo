@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        h3{border:1px solid yellow; margin-bottom: 30px}
+        .bg{background:salmon; color:#fff}
+        .bor{border:1px solid  black}
+    </style>
+    <script type="text/javascript" src="./vue.js"></script>
+</head>
+<body>
+<h3>Vue.js 模板语法
+    Vue.js 使用了基于 HTML 的模版语法，允许开发者声明式地将 DOM 绑定至底层 Vue 实例的数据。
+    Vue.js 的核心是一个允许你采用简洁的模板语法来声明式的将数据渲染进 DOM 的系统。
+    结合响应系统，在应用状态改变时， Vue 能够智能地计算出重新渲染组件的最小代价并应用到 DOM 操作上。</h3>
+    <div id="app">
+        {{message |  capitalize}}
+        <button v-on:click="reverseMessage">单机反转</button>
+        <div v-html="dom"></div>
+
+        <div>
+            <p style="white-space: pre">
+                {{mess}}
+            </p>
+            <textarea type="text" placeholder="换行输出" v-model="mess"></textarea>
+        </div>
+        <div>
+            <label for="ri">修改颜色</label><input type="checkbox"  v-model="bg" id="ri">
+            <p v-bind:class="{'bg': bg}">
+                this is v-bind:attr
+            </p>
+        </div>
+
+        <div>
+            {{5+5}} <br>
+            {{ok ? 'yes' : 'no'}} <br>
+            {{str.split(' ')}}
+
+        </div>
+
+
+        <br>
+        <br>
+        <div  v-bind:class="[bg,bor]">
+            <input type="checkbox"  v-model="insert">
+            <p v-if="insert">
+                {{directive}}
+                <br>
+                v-if  v-show  v-on  v-bind   v-for  v-once   v-name:parameter
+                <br>
+                缩写 v-on  @     v-bind :
+                <br>
+                <br>
+                事件修饰符修饰符：是以半角句号 . 指明的特殊后缀，用于指出一个指定应该以特殊方式绑定: stop冒泡    prevent自定义    capture事件捕获模式    self事件在该元素本身
+                <br> 用法：v-on:click.prevent <br>
+                <br>
+                #按键修饰符：esc    enter    tab    space    delete  上下左右方向键  ctrl  alt shift  meta  等控制键
+                <br> 用法:   <input v-on:keyup.enter="submit">//用回车键进行操作提交
+                <br>
+                修饰符：  .lazy(在change事件中同步)    .number(过滤作用数值型)       .trim(过滤去除首尾空格)
+                <br> 用法： <input type="text" v-model.lazy="mess4">    {{mess4}}
+            </p>
+        </div>
+
+        <div>
+            <p>v-if   v-else-if    v-else</p>
+            <div v-if="Math.random() > 0.5">
+                v-if成立
+            </div>
+            <div v-else>
+                v-else成立
+            </div>
+        </div>
+
+        <ol>
+           <template v-for="site in sites">
+               <li>{{site.name}}</li>
+               <li>-----------</li>
+           </template>
+        </ol>
+
+        <ol>
+            <li v-for="site in sites">
+                {{ site.name }}
+            </li>
+        </ol>
+
+        <div>
+            <ul>
+                <li v-for="( value, key, index) in object">
+                    {{index}},{{key}} : {{value}}
+                </li>
+            </ul>
+        </div>
+
+        <ul>
+            <li v-for="i in 10">{{i}}</li>
+        </ul>
+        <div>
+            <input type="checkbox"  value="张三" v-model="checkedName" id="n1"> <label for="n1">张三</label>
+            <input type="checkbox"  value="李四" v-model="checkedName" id="n2"><label for="n2">李四</label>
+            <input type="checkbox"  value="王五" v-model="checkedName" id="n3"><label for="n3">王五</label>
+            <p>选中的名字:{{checkedName}}</p>
+        </div>
+
+        <div>
+            列表select
+            <select name="" id="" v-model="selected">
+                <option value="">选择目的地</option>
+                <option value="beijing">北京</option>
+                <option value="北京">北京 北京</option>
+            </select>
+            <p>目的地：{{selected}}</p>
+        </div>
+        <global-component></global-component>
+        <com-name></com-name>
+            <p>当使用 DOM 作为模版时， ul ，ol，table ，select 限制了能被它包裹的元素， 而一些像 option，tr 这样的元素只能出现在某些其它元素内部</p>
+        <br>
+        <br>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+        <simple-counter></simple-counter>
+
+        <child info="父组件传递的值"></child>
+    </div>
+<script type="text/javascript">
+    //确保在初始化根实例 之前 注册了组件
+    //全局组件    组件中 data 必须是一个函数
+    Vue.component("globalComponent",{  //组件名字  使用驼峰格式    用连接符-
+        template:"<h4>global component</h4>"
+    })
+
+    Vue.component('simpleCounter',{
+        template: '<button v-on:click="counter += 1">{{ counter }}</button>',
+        // 但是我们返回给每个组件的实例的却引用了同一个data对象
+        // data  组件定义中  必须是函数    返回每个实例值
+                //对象的引用地址不同 每次渲染返回不同的对象
+                    // 也就防止了 多次渲染引用同一个地址，渲染后的元素不能独立工作
+        data: function () {
+           return {
+               //数据选项中  声明反应数据属性
+                counter:1  //实例上定义 counter ， 渲染时引用
+            }
+
+        }
+
+    })
+
+    Vue.component('child',{
+        //声明 props   父组件传递的变量
+        props:["info"],   //子组件通过  info  接受值
+        template:"<p>{{info}}</p>",   //子组件得到父组件传递的值
+    })
+
+/*
+    //String Number Boolean Function Object  Array    type 也可以是一个自定义构造器，使用 instanceof 检测
+    Vue.component('childType',{
+        //props  是对象  有验证要求
+        props:{
+            //基础类型检测    null  任何类型都可以
+            propA: Number,
+            //多用类型
+            propB: [String,Number],
+            propC:{
+               // 数字   必须的     默认值
+               type: Number,
+                required: true,
+                default: 100
+            },
+            propD:{
+               //数组对象的默认值   应当由一个工厂函数返回
+               type: Object ,
+                default:function(){
+                    return {messagey:'hello'}
+                }
+            },
+            propF:{   //自定义验证函数   ['vali,deitə]
+               validator: function(value){
+                   return value >10
+               }
+            },
+        }
+    })*/
+    //局部组件
+
+    const vm=new Vue({
+        el:'#app',
+        components:{   //局部组件
+            'comName': { template:'<h4>只在此模板下可用  局部组件</h4>'}
+        },
+        data:{
+            message: 'this is message',
+            dom:'<p>this is v-html</p>',
+            bor: 'bor',
+            mess:'换行文本输出。。。。',
+            mess4:'v-model修饰符',
+            checkedName:[], // 把属性定义为数组  实现数组项增删
+            selected:'',
+            sites:[
+                {name: 'Runoob'},
+                {name: 'Google'},
+                {name: 'Taobao'},
+            ],
+            object: {
+                name: '菜鸟教程',
+                url: 'http://www.runoob.com',
+                slogan: '学的不仅是技术，更是梦想！'
+            },
+            bg:false,
+            ok:true,
+            str:'Vue.js 提供了完全的 JavaScript 表达式支持',
+            insert:true,
+            directive:'指令是带有 v- 前缀的特殊属性。指令用于在表达式的值改变时，将某些行为应用到 DOM 上'
+
+        },
+        methods:{
+            reverseMessage:function(){
+                this.message = this.message.split(" ").reverse().join(" ")
+            }
+
+        },
+        filters:{  //过滤器函数接受表达式的值作为第一个参数
+            capitalize:function (value) {   //首字母大写
+                if (!value) return '';
+                value = value.toString();
+                return value.charAt(0).toUpperCase() + value.slice(1);
+
+            }
+        },
+     computed:{ //计算属性
+         // 计算属性的 getter
+        /* reversedMessage: function () {
+             // `this` 指向  实例 vm
+             return this.message.split('').reverse().join('')
+         }*/
+        //vm.reversedMessage 依赖于 vm.message，在 vm.message 发生改变时，vm.reversedMessage 也会更新。
+
+         site:{
+             //getter
+             get:function(){
+                    //第一个 对象 的  getter 方法
+             },
+
+             //setter
+             set:function(){
+                    //第二个 对象  的 setter 方法
+             }
+         }
+     },
+     /*   watch:{
+
+        },*/
+
+
+    })
+
+
+    //知识点：  {{ message | filterA('arg1', arg2) }}message 是第一个参数，字符串 'arg1' 将传给过滤器作为第二个参数， arg2 表达式的值将被求值然后传给过滤器作为第三个参数。
+        // Vue 实例暴露了一些有用的实例属性与方法。这些属性与方法都有前缀 $，以便与代理的 data 属性区分
+            //  vm.$data   vm.$el   vm.$watch('mess',function(newVal,oldVal){})
+        // <template></template> 包装元素
+        // v-for=" i in arr"  遍历数组        v-for = " (val,key,ind) in obj"迭代对象  迭代整数(小数报错)
+    //computed vs methods   效果上两个都是一样的，但是 computed 是基于它的依赖缓存，只有相关依赖发生改变时才会重新取值。而使用 methods ，在重新渲染的时候，函数总会重新调用执行。
+            // computed 性能会更好，但是有缓存
+            //computed 默认只有 getter 属性； 是咧证明 可以添加 setter 属性设置值
+    //Vue.component(name,{})  组件注册在  初始化根实例之前    组件中 data 必须是一个函数
+            //这些元素 <ul> ，<ol>，<table> ，<select> 限制了能被它包裹的元素， 而一些像 <option> 这样的元素只能出现在某些其它元素内部。
+                //变通的方案是使用特殊的 is 属性：
+                          /*  <table>
+                            <tr is="my-row"></tr>
+                            </table>*/
+    //构成组件：  组件意味着协同工作，又相对独立=====》组件可以相互通信（父子组件），定义接口中尽可能将父子组件解耦
+                //==========>>>>>大幅提高了组件的可维护性和可重用性。
+                //在 Vue.js 中，父子组件的关系可以总结为 props down, events up
+                //组件组件实例的作用域是孤立的
+</script>
+</body>
+</html>
