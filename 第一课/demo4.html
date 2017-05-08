@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>用循环将三个DIV变成红色</title>
+	<style>
+		#outer{width:330px;height:100px;margin:10px auto;}
+		#outer div{float:left;width:100px;height:100px;margin:0 5px;background:black;}
+
+	</style>
+</head>
+<body>
+	<center><button>点击将DIV变成红色</button></center>	
+	<!-- HTML5 不支持 <center> 标签。请用 CSS 代替。在 HTML 4.01 中，<center> 元素 已废弃 -->
+	<!-- <center> 对其所包括的文本进行水平居中 -->
+	<div id="outer">
+		<div>div1</div>
+		<div>div2</div>
+		<div>div3</div>
+	</div>
+	
+	<script>
+		window.onload=function(){
+			var oDiv= document.getElementById('outer').getElementsByTagName('div');
+			var oBtn = document.getElementsByTagName('button')[0];
+			oBtn.onclick=function(){
+				for(var i=0;i<oDiv.length;i++) oDiv[i].style.background='red';
+			}
+		}
+
+
+
+		//知识点： 排版：事件触发器与 要操作的元素分开；便于对元素管理
+			//2、要操作的元素父元素 用ID 这样可以防止误操作
+			//3、省略for循环 省略{}， 代码的简写形式 
+
+
+
+
+
+		//都主要应用于浏览器显示计算机中的源代码。
+		//code标签的一个功能是暗示浏览器code标签所包围的文本是计算机源代码，，浏览器可以做出自己的 样式处理
+		//pre标签可以保留文本中的空格和换行符,不具有code的功能,   保留文本中的空格和换行符是计算机源代码显示 所必须的样式
+		//code标签和pre标签是 可以嵌套使用的，但是必须注意两者的嵌套顺序。
+		  //<pre> <code></code></pre>
+
+
+		 //补充知识点   html5省略规则    可以省略结束标签呢 
+	</script>
+</body>
+</html>

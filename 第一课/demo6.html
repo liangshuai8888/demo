@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>记住密码提示框</title>
+	<style>
+		body,input,p{margin:0;padding:0;}
+		body{font: 12px/1.5 Tahoma;}
+		#outer{width: 200px;margin:10px auto;}
+		input{margin-right:5px; vertical-align: middle}
+		#tips{padding:5px;margin-top:5px;background:#ffefa4;border:1px solid #f90;display: none;}
+	</style>
+</head>
+<body>
+	<div id="outer">
+		<label for=""><input type="checkbox"/>两周内自动登录</label>
+		<div id="tips">为了你的安全，请不要在网吧或公用电脑上使用此功能</div>
+	</div>
+	<script>
+		window.onload=function(){
+			var oTips = document.getElementById("tips");
+			var oLabel=document.getElementsByTagName("label")[0];
+			oLabel.onmouseover=function(){
+				oTips.style.display="block";
+			}
+			oLabel.onmouseout=function(){
+				oTips.style.display="none";
+			}
+		}
+
+		//知识点： 可能最先想到的是定位来做这个效果，而实际上真的不需要，通过显示或隐藏就可以；  label标签包含了input及说明文字，这样当滑过label就会显示，提高了用户体验;   提示框的配色，页很赞
+
+	</script>
+</body>
+</html>
