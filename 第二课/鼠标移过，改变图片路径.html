@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>改变图片路径</title>
+	<style>
+		body,ul,li{margin:0;padding:0;}
+		body{background:#000;}
+		img{border:0;border-radius:3px;}
+		ul{list-style-type:none;}
+		#box{width:212px;border:5px solid #fff;overflow: hidden;zoom:1;background:#fff;border-radius: 5px;margin:10px auto;padding:0 0 3px 3px;}
+		#box li,#box li img{float:left;width:50px;height:50px;}
+		#box li{margin:3px 3px 0 0;}
+		#box li.first{position:relative;}
+		#box li.first,#box li.first img{width:156px;height:156px;}
+		#box li.first div{position:absolute;top:0;left:0;width:156px;height:156px;display:none;opacity:0.5;filter:alpha(opacity=50);background:#fff url(images/img/loading.gif) 50% 50% no-repeat;}
+
+	</style>
+</head>
+<body>
+<ul id="box">
+    <li class="first"><img src="images/img/big_1.jpg"><div></div></li>
+    <li><a href="javascript:;"><img src="images/img/small_1.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_2.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_3.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_4.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_5.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_6.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_7.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_8.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_9.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_10.jpg"></a></li>
+    <li><a href="javascript:;"><img src="images/img/small_11.jpg"></a></li>
+</ul>
+
+<script>
+	window.onload=function(){
+		var oImg=document.getElementById("box").getElementsByTagName("img");
+		var oDiv = document.getElementsByTagName("div")[0];
+		for(var i =1;i<oImg.length;i++){
+			oImg[i].onmouseover=function(){
+				var img = new Image();
+				img.src= oImg[0].src = this.src.replace(/small/,"big");
+				oDiv.style.display = "block";
+				img.complete ? oDiv.style.display = "none" : (oImg[0].onload = function() {oDiv.style.display = "none" })
+
+			}
+		}
+
+
+	}
+
+//知识点 
+	//Image 对象代表嵌入的图像
+	//complete  返回浏览器是否已完成对图像的加载
+		//onabort	当用户放弃图像的装载时调用的事件句柄
+		//onerror	在装载图像的过程中发生错误时调用的事件句柄
+		//onload	当图像装载完毕时调用的事件句柄
+	//标准属性
+		// className	设置或返回元素的 class 属性。
+		// title	设置或返回元素的 title
+
+	//oImg[0].onload = function() {oDiv.style.display = "none" }  当图像加载完毕时，发生的事件
+	//src 属性一定要写到 onload 的后面，否则程序在 IE 中会出错。
+
+//监听  
+	/*var img = new image()
+	img.src = oImg[0].src = this.src.replace(/small/,"big")   对oimg[0].src进行监听
+	img.complete 判断是否已加载完成  状态
+	oImg[0].onload = function(){//图像载完毕调用的事件句柄} 
+*/
+
+
+</script>
+
+</body>
+</html>

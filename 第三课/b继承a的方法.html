@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>b继承a的方法</title>
+</head>
+<body>
+	
+
+
+	<script>
+		function A(age,name){
+			this.age = age;
+			this.name = name;
+		}
+
+		A.prototype.show = function(){
+			alert("父级方法");
+		}
+
+		function B(age,name,job){
+			A.apply(this,arguments);
+			this.job = job;
+		}
+
+		B.prototype = new A();  //
+		B.prototype.dis=function(){
+			alert("b");
+		}
+		var b = new A(14,"侠客行");
+		var a = new B(15,"狼侠","侠客");
+
+		a.show();
+		// a.dis();  
+		//b.dis();  在子级原型上定义的方法，父级没有
+
+		console.log(B.prototype.constructor)  //指向A   B原型的构造函数指向A，不知向B 
+
+
+//在父级原型上定义的方法，子级通过 B.prototype = new A(); 继承父级原型上的方法
+//子级通过 call 或 apply 获得父级上的方法
+//B.prototype.constructor  子级原型上的构造函数 指向父级
+//在子级原型上定义的方法，父级实例上不能调用
+
+
+	</script>
+
+
+</body>
+</html>

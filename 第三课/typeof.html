@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>typeof 查看数据类型</title>
+	<style>
+		pre{color:green;padding:10px 15px;background:#f0f0f0;border:1px dotted #333;font:12px/1.5 Courier New;}
+		span{color:#999;}
+	</style>
+</head>
+<body>
+
+<pre>
+	&lt;script type="text/javascript"&gt;
+	    alert(typeof 12345);	<span>//输出number</span>
+	    alert(typeof "abc");	<span>//输出string</span>
+	    alert(typeof document);	<span>//输出object</span>
+	&lt;/script&gt;
+</pre>
+
+	<script>
+	alert("typeof 12345 → " + typeof 12345 + "\
+		\n\ntypeof \"abc\" → " + typeof "abc" + "\
+	  \n\ntypeof document → " + typeof document
+	  );
+
+	</script>
+
+
+	<script>
+	//alert文本内容换行 /n
+
+	//pre 元素可定义预格式化的文本。被包围在 pre 元素中的文本通常会保留空格和换行符。而文本也会呈现为等宽字体。
+		//<pre> 标签的一个常见应用就是用来表示计算机的源代码。可以导致段落断开的标签（例如标题、<p> 和 <address> 标签）绝不能包含在 <pre> 所定义的块里
+	//标签转文本输出  &lt;script&gt;
+
+	//编辑器IDE需要使用等宽字体，以满足编程时能够准确区分每个字符，以及便于对齐代码的需求。Courier New 是 Windows 的缺省等宽字体。
+	</script>
+</body>
+</html>

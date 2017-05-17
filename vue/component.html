@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>component 组件</title>
+	<script rel="stylesheet" src="vue.js"></script>
+</head>
+<body>
+	<div id="app-7">
+	  <ol>
+	    <!-- 现在我们为每个todo-item提供待办项对象    -->
+	    <!-- 待办项对象是变量，即其内容可以是动态的 -->
+	    
+	    <!-- v-bind 指令将待办项传到组件中 -->
+	    <todo-item v-for="item in groceryList" v-bind:todo="item"></todo-item>
+	  </ol>
+	</div>
+
+
+	<script>
+		Vue.component('todoItem', {
+		  props: ['todo'],  //props  使组件能够接受一个属性  将数据从父作用域传到子组件  代办事项
+		  template: '<li>{{todo.text}}</li>'
+		  // 组件实现更复杂的模板和逻辑 的改进，而不会影响到父单元。
+		})
+
+
+		var app7 = new Vue({
+		  el: '#app-7',
+		  data: {
+		    groceryList: [
+		      { text: '蔬菜' },
+		      { text: '奶酪' },
+		      { text: '随便其他什么人吃的东西' }
+		    ]
+		  }
+		})
+	</script>
+
+</body>
+</html>

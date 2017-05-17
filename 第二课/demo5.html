@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>函数传参，改变Div任意属性的值</title>
+	<style>
+		 body,div,p{margin:0;padding:0;}
+		 body{color:#333;font:12px/1.5 Tahoma;padding-top:10px;}
+		 #outer{width:300px;margin:0 auto;}
+		 p{margin-bottom:10px;}
+		 button{margin-right:5px;}
+		 label{width:5em;display: inline-block;text-align: right}
+		 input{padding:3px;font-family: inherit;border:1px solid #ccc;}
+		 #div1{color:#fff;width:180px;height:180px;background:#000;margin:0 auto;padding:10px;}
+	</style>
+</head>
+<body>
+	<div id="outer">
+		<p><label for="">属性名：</label><input type="text" value="background"></p>
+		<p><label for="">属性名：</label><input type="text" value="red"></p>
+		<p><label for=""></label><button>确定</button><button>重置</button></p>
+	</div>
+
+	<div id="div1">在上方输入框输入"属性名"及"属性值",点击确定按钮查看效果</div>
+
+
+	<script>
+		var changeStyle = function(ele,name,value){
+			ele.style[name]=value;   //  <div style=""></div>
+		}
+
+
+		window.onload=function(){
+			var oDiv = document.getElementById("div1");
+			var oBtn = document.getElementsByTagName("button")
+			var oInput = document.getElementsByTagName("input");
+			oBtn[0].onclick=function(){
+				changeStyle(oDiv,oInput[0].value,oInput[1].value)
+			},
+			oBtn[1].onclick=function(){
+				oDiv.removeAttribute("style")
+			}
+
+		}
+
+
+
+
+
+
+	//知识点：*{margin:0; padding:0;} 像 2L 所说，body ,ul, li ,p,h1~h6,dd,dt 等……都有默认的margin 或padding值的，加上这句就可以删除浏览器这些默认值，方面后面的设置。（注：不是没它不行，只是方便而已）
+	//input 字体居中 用 padding:3px    font-family:inherit 设置一下  不会自动继承 用计算机默认字体   font: 13.3333px Arial;color:initial
+	//写样式时 从大到小  从全局到具体  
+	//当首个子元素需要写 margin-top时，转成父元素padding-top  防止塌陷  
+	//保持美观  可用空标签占位
+
+
+	// !important  内联样式 1000  id选择器100  类选择器10  元素选择器1 
+	
+	//外部样式 < 内部样式 < 内联样式
+	</script>
+</body>
+</html>

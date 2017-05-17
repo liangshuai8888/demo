@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>判断数字是否为两位数</title>
+	<style>
+		body{font:12px/1.5 arial;text-align: center}
+		.f-text{width: 50px;border:1px solid #ccc;background:#f0f0f0;font-family: inherit;padding:3px;margin-right: 10px;}
+
+	</style>
+</head>
+<body>
+	
+
+	<input type="text" class="f-text"><input type="button" value="是否为两位数">
+	<div class="oDiv"></div>
+	<script>
+		window.onload=function(){
+			var aInput= document.getElementsByTagName("input");
+			var aSpan = document.getElementsByTagName("span")[0];
+			var i=0;
+
+			aInput[0].onkeyup=function(){
+				this.value=this.value.replace(/[^\d]/,"");
+			}
+
+			aInput[1].onclick=function(){
+				(aInput[0].value=="") ? 
+				alert("请输入数字！") :
+				alert(/^\d{2}$/.test(parseInt(aInput[0].value)) ? "√ 是两位数" : ("这是" + aInput[0].value.length + "位数"));
+			}
+
+		}
+
+// 正则方法：  /^\d{2}$/.test()  正则的test方法
+// alert() 里面可以是表达式   三元运算符  
+//parseInt()字符串转成number类型
+	</script>
+	<script>
+		//累加按钮
+		window.onload = function ()
+		{
+			var aBtn = document.getElementsByTagName("input")[0];
+			var i = 0;
+			
+			aBtn.onclick = function ()
+			{
+				aBtn.value = ++i;	
+				alert(i)
+			}	
+		}
+
+	</script>
+	<script>
+
+		window.onload = function ()
+		{
+
+			var oDiv = document.getElementsByTagName("div")[0];
+			var i = 0;
+			setInterval(updateNum, 1000);
+			updateNum();
+			function updateNum()
+			{
+				oDiv.innerHTML = ++i	
+			}
+		}
+
+	</script>
+
+</body>
+</html>

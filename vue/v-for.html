@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>v-for 列表渲染</title>
+	<script src="vue.js"></script>
+</head>
+<body>
+	<ul id="example-2">
+	  <li v-for="(item, index) in items">  <!--  of -->
+	    {{ parentMessage }} - {{ index }} - {{ item.message }}
+	  </li>
+	</ul>
+
+
+	<ul id="exam3">
+	  <template v-for="item in items">
+	    <li>{{ item.msg }}</li>
+	    <li class="divider"></li>
+	  </template>
+	</ul>
+
+<script>
+	var example2 = new Vue({
+	  el: '#example-2',
+	  data: {
+	    parentMessage: 'Parent',
+	    items: [
+	      { message: 'Foo' },
+	      { message: 'Bar' }
+	    ]
+	  }
+	})	
+
+	var exam3 = new Vue({
+	  el: '#exam3',
+	  data: {
+	    items: [
+	      { msg: 'Foo' },
+	      { msg: 'Bar' }
+	    ]
+	  }
+	})
+
+
+	//template v-for 
+	  // <template  v-for> 标签来渲染多个元素块
+</script>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<script src="vue.js"></script>
+	<script src="velocity.min.js"></script>
+</head>
+<body>
+	<div id="demo3">
+		<button @click="show=!show">Toggle</button>
+		<transition
+			v-on:before-enter="beforeEnter"
+			v-on:enter="enter"
+			v-on:leave="leave"
+			v-bind:css="false"
+		>
+			<p v-if="show">velocity js钩子</p>
+		</transition>	
+	</div>
+
+	<script>
+	new Vue({
+	  el: '#demo3',
+	  data: {
+	    show: false
+	  },
+	  methods: {
+	    beforeEnter: function (el) {
+	      el.style.opacity = 0
+	      el.style.transformOrigin = 'left'   //过渡的origin设置左上角
+	    },
+	    enter: function (el, done) {  //回调函数done是必须的
+	      Velocity(el, { opacity: 1, fontSize: '1.4em' }, { duration: 300 })
+	      Velocity(el, { fontSize: '1em' }, { complete: done })
+	    },
+	    leave: function (el, done) {//done 是必须的
+	      Velocity(el, { translateX: '15px', rotateZ: '50deg' }, { duration: 600 })
+	      Velocity(el, { rotateZ: '100deg' }, { loop: 2 })
+	      Velocity(el, {
+	        rotateZ: '45deg',
+	        translateY: '30px',
+	        translateX: '30px',
+	        opacity: 0
+	      }, { complete: done })
+	    }
+	  }
+	})
+//知识点：   v-bind:css="false"  Vue跳过css的检测，页可以避免过渡过程中 css的影响
+	// 在 enter 和 leave 中，回调函数 done 是必须的 。 否则，它们会被同步调用，过渡会立即完成。
+
+	/*velocity  is a great option for javaScript animations  velocity是js动画的最好的选择  js钩子*/
+
+	</script>
+</body>
+</html>
