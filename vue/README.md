@@ -194,3 +194,130 @@ template v-for
 
  组件 和 v-for
  	组件和普通元素，v-for用法一样。但是不能自动传递数据到组件里。组件有自己独立的作用域。用 props属性接受
+
+ v-for width v-if
+ 	同一节点，v-for的优先级比v-if高，意味着 v-if 将分别重复运行于每个 v-if 循环中
+
+
+数组更新检测
+变异方法
+	[mjuː'teɪʃ(ə)n]  突变 变化
+	变异方法(mutation method)，顾名思义，会改变被这些方法调用的原始数组
+	Vue包含一组 观察 数组的变异方法，所以它们也会触发视图更新
+
+    push() 
+    pop()
+    shift()  删除 返回删除值
+    unshift() 添加到数组开头 返回长度
+    splice()
+    sort()
+    reverse()
+	
+	你打开控制台，然后用前面例子的 items 数组调用变异方法：example1.items.push({ message: 'Baz' })
+
+重塑数组
+	filter(), concat(), slice() 不会改变原始数组，但总是返回一个新数组。
+	Vue 实现了一些智能启发式方法来最大化 DOM 元素重用
+	不会重新渲染整个列表  
+	example1.items = example1.items.filter(function (item) {
+	  return item.message.match(/Foo/)
+	})
+
+
+事件修饰符
+	//尽管我们可以在 methods 中轻松实现这点，但更好的方式是：methods 只有纯粹的数据逻辑，而不是去处理 DOM 事件细节
+	 v-on 提供了 事件修饰符
+    .stop
+    .prevent
+    .capture
+    .self
+    .once  新增 2.0
+
+    <!-- 阻止单击事件冒泡 -->
+<a v-on:click.stop="doThis"></a>
+<!-- 提交事件不再重载页面 -->
+<form v-on:submit.prevent="onSubmit"></form>
+<!-- 修饰符可以串联  -->
+<a v-on:click.stop.prevent="doThat"></a>
+<!-- 只有修饰符 -->
+<form v-on:submit.prevent></form>
+<!-- 添加事件侦听器时使用事件捕获模式 -->
+<div v-on:click.capture="doThis">...</div>
+<!-- 只当事件在该元素本身（而不是子元素）触发时触发回调 -->
+<div v-on:click.self="doThat">...</div>
+<!-- 点击事件将只会触发一次 -->
+<a v-on:click.once="doThis"></a>
+
+
+按键修饰符
+	在监听键盘事件时，我们经常需要监测常见的键值。 Vue 允许为 v-on 在监听键盘事件时添加按键修饰符
+	1、监测常见的键值
+	2、Vue 为最常用的按键提供了别名
+
+	全部的按键别名：
+    .enter 13
+    .tab
+    .delete (捕获 “删除” 和 “退格” 键)
+    .esc
+    .space
+    .up
+    .down
+    .left
+    .right
+		2.1.0新增
+    .ctrl
+    .alt
+    .shift
+    .meta
+
+
+
+	//可以通过全局 config.keyCodes 对象自定义按键修饰符别名：
+    // 可以使用 v-on:keyup.f1
+		Vue.config.keyCodes.f1 = 112
+
+
+为什么在HTML中监听事件
+	你可能注意到这种事件监听的方式违背了关注点分离（separation of concern）传统理念。不必担心，因为所有的 Vue.js 事件处理方法和表达式都严格绑定在当前视图的 ViewModel 上，它不会导致任何维护上的困难。实际上，使用 v-on 有几个好处：
+
+    扫一眼 HTML 模板便能轻松定位在 JavaScript 代码里对应的方法。
+
+    因为你无须在 JavaScript 里手动绑定事件，你的 ViewModel 代码可以是非常纯粹的逻辑，和 DOM 完全解耦，更易于测试。
+
+    当一个 ViewModel 被销毁时，所有的事件处理器都会自动被删除。你无须担心如何自己清理它们。
+
+
+表单控件绑定
+	 v-model 指令在表单控件元素上创建双向数据绑定，根据控件类型自动选取正确的方法来更新元素， 本质上不过是语法糖，它负责监听用户的输入事件以更新数据，并特别处理一些极端的例子。
+	 v-model 并不关心表单控件初始化所生成的值。因为它会选择 Vue 实例数据来作为具体的值
+	 如果你也想实现更新，请使用 input事件。
+
+	 <span>Multiline message is:</span>
+<p style="white-space: pre">{{ message }}</p>   //不换行 white-space
+<br>
+<textarea v-model="message" placeholder="add multiple lines"></textarea>
+
+修饰符
+	.lazy
+	.number
+	.trim
+
+<!-- 在 "change" 而不是 "input" 事件中更新 -->
+<input v-model.lazy="msg" >
+<!-- 输入值转为number类型，NaN返回原值 -->
+<input v-model.number="age" type="number">
+<!-- 自动过滤输入的首尾空格 -->
+<input v-model.trim="msg">
+
+	.lazy
+		在默认情况下， v-model 在 input 事件中同步输入框的值与数据 (除了上述 IME 部分)，但你可以添加一个修饰符 lazy ，从而转变为在 change 事件中同步：
+	.number
+		如果想自动将用户的输入值转为 Number 类型（如果原值的转换结果为 NaN 则返回原值）
+		
+		这通常很有用，因为在 type="number" 时 HTML中输入的值也总是会返回字符串类型。
+	.trim
+		自动过滤用户输入的首尾空格
+
+
+v-modal 与组件
+	Vue 的组件系统允许你创建一个具有自定义行为可复用的 input 类型，这些 input 类型甚至可以和 v-model 一起使用

@@ -1,0 +1,208 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<title>新旧弹性盒属性</title>
+	<meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<style>
+		body,div,p,h2{margin:0;padding:0;}
+		body{position: absolute;left:0;right:0;top:0;bottom:0;background: rgba(1,1,1,0.5)}
+		.top p,.bottom p{width:50px;height:50px;padding:5px;border:1px solid orange;}
+		.top{height:45%;width:100%;background:green;
+			display:-webkit-box;
+			display: -moz-box;
+			display: -ms-box;
+			display: -o-box;
+		 	-webkit-box-orient:horizontal;  
+			/*  -webkit-box-pack:end; */  /* 主轴方向对齐 */
+     		-webkit-box-align: stretch; /* 不起作用 */
+     		-webkit-box-direction:reverse;
+		
+		}
+
+		.top p:nth-child(1){-webkit-box-flex:2;-webkit-box-flex-group:1;
+			/* -webkit-box-ordinal-group:1; */
+		}
+		.top p:nth-child(2){-webkit-box-flex:2;-webkit-box-flex-group:2;
+		/* -webkit-box-ordinal-group:3; */
+		}
+		.top p:nth-child(3){-webkit-box-flex:2;-webkit-box-flex-group:1;
+			/* -webkit-box-ordinal-group:2; */
+		}
+
+
+
+		.bottom{height:45%;width:100%;background:blue;
+			display: flex;
+			display: -webkit-flex;
+			flex-direction:row;
+			
+			/* -webkit-justify-content:flex-end;  */
+			-webkit-align-items:stretch; /* 不起作用 */
+		
+
+		}
+
+		.bottom p:nth-child(1){/* -webkit-flex-grow:3; */order:1;
+			flex-basis:400px;
+			width: 400px;
+		}
+		.bottom p:nth-child(2){/* -webkit-flex-grow:3; */order:3;
+			flex-basis:400px;
+			width:400px;
+		}
+		.bottom p:nth-child(3){/* -webkit-flex-grow:3; */order:2;
+			flex-basis: 400px;
+			width:400px;
+		}
+	</style>
+</head>
+<body>
+	<h2>旧弹性盒</h2>
+	<div class="top">
+		<p>aaa</p>
+		<p>bbb</p>
+		<p>ccc</p>
+
+	</div>
+
+	<h2>新版弹性盒</h2>
+	<div class="bottom">
+		<p>ddd</p>
+		<p>eee</p>
+		<p>fff</p>
+	</div>
+
+
+
+	<script>
+		//盛满全屏   position方法 
+		//flex：none | <' flex-grow '> <' flex-shrink >'? || <' flex-basis '>
+			//设置或检索弹性盒模型对象的子元素如何分配空间
+/*		如果缩写「flex: 1」, 则其计算值为「1 1 0%」 
+		如果缩写「flex: auto」, 则其计算值为「1 1 auto」 
+		如果「flex: none」, 则其计算值为「0 0 auto」 
+		如果「flex: 0 auto」或者「flex: initial」, 则其计算值为「0 1 auto」，即「flex」初始值 */
+
+		//要分配的剩余空间：容器宽度-各子元素的基准值  
+
+		
+
+
+		
+
+		
+
+	</script>
+	<script>
+		伸缩盒对象的子元素如何分配其剩余空间  动态分配父元素的剩余空间
+		box-flex:<number> 浮点数指定对象所分配其父元素剩余空间的比例
+	</script>
+	<script>
+/*		box-orient：horizontal | vertical | inline-axis | block-axis
+		orient  ['ɔːrɪənt; 'ɒr-]  使适应；确定方向
+		horizontal [hɒrɪ'zɒnt(ə)l]  
+		inline-axis： 设置伸缩盒对象的子元素沿行轴排列    ['æksɪs]轴
+		block-axis： 设置伸缩盒对象的子元素沿块轴排列 */
+
+/*		设置或检索伸缩盒对象的子元素的排列方式。
+
+		可以通过box-orient:horizontal + box-direction:normal 达到新版本 flex-direction:row 的效果；
+		可以通过box-orient:horizontal + box-direction:reverse 达到新版本 flex-direction:row-reverse 的效果；
+		可以通过box-orient:vertical + box-direction:normal 达到新版本 flex-direction:column 的效果；
+		可以通过box-orient:horizontal + box-direction:reverse 达到新版本 flex-direction:column-reverse 的效果；*/
+
+		//新盒子
+		/*flex-direction：row | row-reverse | column | column-reverse*/
+
+
+	</script>
+
+	<script>
+/*		设置伸缩盒对象 子元素对齐  主轴上对齐box-orient
+		box-pack：start | center | end | justify
+		justify:两端对齐*/
+
+
+		//新盒子   主轴上对齐 
+	/*	justify-content：flex-start | flex-end | center | space-between | space-around*/
+
+	</script>
+	<script>
+		 伸缩盒对象子元素 对齐方式   与box-pack相反  侧轴对齐
+		box-align：start | end | center | baseline | stretch
+
+		//新盒子
+
+		与justify-content 相反
+		align-content：flex-start | flex-end | center | space-between | space-around | stretch    调准伸缩项目在侧轴上对齐方式
+
+
+	</script>
+	<script>
+		设置或检索伸缩盒对象的子元素的所属组
+		box-flex-group：<integer>
+
+
+	</script>
+
+	<script>
+		设置或检索伸缩盒对象的子元素的显示顺序
+		数值较低的元素显示在数值较高的元素前面  数值高的显示在后面
+		box-ordinal-group：<integer>
+
+		/*ordinal  顺序['ɔːdɪn(ə)l] */
+
+	
+		// 过渡的 flex-order
+		//新盒子	
+			order：<integer> 在子元素上设置显示顺序
+	</script>
+	<script>
+		设置或检索伸缩盒对象的子元素的排列顺序是否反转   box-flex上
+		box-direction: normal | reverse
+
+
+		/*可以通过box-orient:horizontal + box-direction:normal 达到新版本 flex-direction:row 的效果； 
+		可以通过box-orient:horizontal + box-direction:reverse 达到新版本 flex-direction:row-reverse 的效果； 
+		可以通过box-orient:vertical + box-direction:normal 达到新版本 flex-direction:column 的效果； 
+		可以通过box-orient:horizontal + box-direction:reverse 达到新版本 flex-direction:column-reverse 的效果； */
+		Firefox设置box-direction为reverse时，在将元素的排列顺序反转的同时也将元素的对齐方式逆转了；Safari和Chrome则只是反转元素排列顺序 
+
+		//新盒子
+		flex-direction：row | row-reverse | column | column-reverse
+
+	</script>
+
+	<script>
+		设置或检索伸缩盒对象的子元素是否可以换行显示
+		box-lines：single | multiple
+		实验性质支持box-lines，但没有实现该属性的效果（相当于不支持），请勿使用该属性 
+	</script>
+
+	<script>
+		//新盒子
+
+		设置或检索弹性盒的收缩比率。
+		flex-shrink：<number>   正值
+
+		设置或检索弹性盒伸缩基准值
+		flex-basis：<length> | <percentage> | auto | content    正值 
+
+		该属性控制flex容器是单行或者多行，同时横轴的方向决定了新行堆叠的方向
+		flex-wrap：nowrap | wrap | wrap-reverse   父盒子宽度不能设置为100%  会重新计算
+
+		定义flex子项单独在侧轴（纵轴）方向上的对齐方式。 
+		align-self：auto | flex-start | flex-end | center | baseline | stretch
+
+		复合属性。设置或检索弹性盒模型对象的子元素排列方式。 
+		flex-flow：<' flex-direction '> || <' flex-wrap '>
+
+
+		flex子项在flex容器的  当前行的  侧轴（纵轴）方向上的对齐方式
+		align-items：flex-start | flex-end | center | baseline | stretch 
+		stretch [stretʃ] 伸展  
+
+	</script>
+</body>
+</html>
